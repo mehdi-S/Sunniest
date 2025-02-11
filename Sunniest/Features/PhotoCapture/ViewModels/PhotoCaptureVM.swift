@@ -9,6 +9,9 @@ import SwiftUI
 
 @Observable
 final class PhotoCaptureViewModel {
-    init() {
+    private let captureManager = PhotoCaptureManager.shared
+
+    func storeCapturedImage(_ bundleID: String) {
+        captureManager.capturedImageBundleID = bundleID
     }
 }

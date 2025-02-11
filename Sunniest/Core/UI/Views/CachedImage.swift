@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CachedImage: View {
-    let url: URL
+    let imageDisplayable: ImageDisplayable
 
     @State private var imageState: ImageState = .loading
 
@@ -18,12 +18,10 @@ struct CachedImage: View {
                 switch imageState {
                 case .loading:
                     placeholderView
-
                 case .success(let image):
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-
                 case .failure:
                     errorView
                 }
@@ -52,21 +50,31 @@ struct CachedImage: View {
 
     private func loadImage() async {
         // Try cache first
-        if let cached = await ImageCache.shared.get(url) {
+        if let cached = await ImageCache.shared.get(imageDisplayable.imageURL) {
             imageState = .success(cached)
             return
         }
 
         // If not cached, load from network
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-
-            if let uiImage = UIImage(data: data) {
-                let image = Image(uiImage: uiImage)
-                await ImageCache.shared.insert(image, for: url)
+            switch imageDisplayable.value {
+            case .async(let networkId):
+                guard let unwrappedURL = URL(string: networkId) else {
+                    imageState = .failure(URLError(.badURL))
+                    return
+                }
+                let (data, _) = try await URLSession.shared.data(from: unwrappedURL)
+                if let uiImage = UIImage(data: data) {
+                    let image = Image(uiImage: uiImage)
+                    await ImageCache.shared.insert(image, for: networkId)
+                    imageState = .success(image)
+                } else {
+                    imageState = .failure(URLError(.badServerResponse))
+                }
+            case .system(let systemId):
+                let image = Image(systemId)
+                await ImageCache.shared.insert(image, for: systemId)
                 imageState = .success(image)
-            } else {
-                imageState = .failure(URLError(.badServerResponse))
             }
         } catch {
             imageState = .failure(error)

@@ -12,6 +12,8 @@ struct LocationFeedView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(Router.self) private var router
     private let sizeService = DynamicSizeService()
+    private let photoCaptureManager = PhotoCaptureManager.shared
+    private var cameraTip = CameraButtonTip()
     struct Constants {
         static let verticalSpacing: CGFloat = 20
     }
@@ -27,6 +29,7 @@ struct LocationFeedView: View {
         .overlay(alignment: .bottomTrailing) {
             Button(action: {
                 router.navigate(to: .photoCapture)
+                CameraButtonTip.buttonWasTapped.toggle()
             }) {
                 Image(systemName: "camera.circle.fill")
                     .font(.system(size: sizeService.buttonSize(for: dynamicTypeSize), weight: .medium))
@@ -37,6 +40,13 @@ struct LocationFeedView: View {
             }
             .buttonStyle(PressableButtonStyle())
             .padding([.trailing, .bottom], sizeService.padding(for: dynamicTypeSize))
+            .popoverTip(cameraTip)
+        }
+        .onChange(of: photoCaptureManager.capturedImageBundleID) { oldValue, newValue in
+            if let bundleID = newValue {
+                viewModel.handleCapturedPhoto(bundleID)
+                photoCaptureManager.capturedImageBundleID = nil
+            }
         }
         .navigationDestination(for: Route.self) { route in
             viewModel.makeViewForRoute(route)

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TipKit
 
 @main
 struct SunniestApp: App {
@@ -13,6 +14,13 @@ struct SunniestApp: App {
         WindowGroup {
             SearchLocationView()
                 .tint(.accentColor)
+                .task {
+                    try? Tips.configure([
+                        .displayFrequency(.immediate),
+                        .datastoreLocation(.applicationDefault)
+                    ])
+                    try? Tips.resetDatastore()
+                }
         }
     }
 }

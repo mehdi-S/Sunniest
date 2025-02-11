@@ -23,10 +23,9 @@ final class SearchLocationViewModel {
         return (1...20).map { index in
             let temp = Int.random(in: 0...22)
             let suffix = index == 1 ? "er" : "eme"
-            return LocationDTO(id: index,  // Using index as id
-                             name: "Paris \(index)\(suffix) arrondissement",
-                             actualTemp: "\(String(temp))°C",
-                             weatherIcon: getIconFromTemperature(temp))
+            return LocationDTO(name: "Paris \(index)\(suffix) arrondissement",
+                               actualTemp: "\(String(temp))°C",
+                               weatherIcon: getIconFromTemperature(temp))
         }
     }
 

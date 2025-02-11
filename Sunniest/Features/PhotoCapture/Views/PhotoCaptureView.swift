@@ -12,14 +12,16 @@ struct PhotoCaptureView: View {
     @State private var viewModel = PhotoCaptureViewModel()
 
     var body: some View {
-        Text("cheese !")
-            .navigationBarBackButtonHidden(true)
+        Button("Capture") {
+            viewModel.storeCapturedImage("picture1")
+            router.navigateBack()
+        }
     }
 }
 
 #Preview {
     NavigationStack {
         PhotoCaptureView()
-            .environment(Router())
     }
+    .environment(Router())
 }

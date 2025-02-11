@@ -9,13 +9,13 @@ import SwiftUI
 
 actor ImageCache {
     static let shared = ImageCache()
-    private var cache: [URL: Image] = [:]
+    private var cache: [String: Image] = [:]
 
-    func insert(_ image: Image, for key: URL) {
+    func insert(_ image: Image, for key: String) {
         cache[key] = image
     }
 
-    func get(_ key: URL) -> Image? {
+    func get(_ key: String) -> Image? {
         cache[key]
     }
 }

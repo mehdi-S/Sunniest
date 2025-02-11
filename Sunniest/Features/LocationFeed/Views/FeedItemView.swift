@@ -28,7 +28,7 @@ struct FeedItemView: View {
     }
 
     private var imageSection: some View {
-        CachedImage(url: item.imageURL)
+        CachedImage(imageDisplayable: item.image)
             .frame(height: Constants.imageHeight)
             .clipped()
     }
@@ -42,7 +42,7 @@ struct FeedItemView: View {
 
 #Preview {
     FeedItemView(item: FeedItem(
-        imageURL: URL(string: "https://picsum.photos/400/300")!,
+        image: ImageDisplayable(value: .async(networkId: "https://picsum.photos/400/300")),
         description: "A beautiful landscape"
     ))
 }
