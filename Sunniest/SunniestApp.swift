@@ -12,6 +12,7 @@ struct SunniestApp: App {
     var body: some Scene {
         WindowGroup {
             SearchLocationView()
+                .tint(.accentColor)
         }
     }
 }

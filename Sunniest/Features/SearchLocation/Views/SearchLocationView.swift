@@ -16,9 +16,23 @@ struct SearchLocationView: View {
     var body: some View {
         NavigationSplitView {
             List(viewModel.filteredCountries(searchText: searchText), selection: $selectedLocation) { location in
-                Text("\(location.name)")
-                    .tag(location)
+                HStack {
+                    Text("\(location.name)")
+                    Spacer()
+                    VStack(alignment: .trailing) {
+                        Image(systemName: location.weatherIcon)
+                            .symbolRenderingMode(location.weatherIcon.contains("sun") ? .palette : .hierarchical)
+                            .weatherForegroundStyle(isSunny: location.weatherIcon.contains("sun"))
+                            .font(.system(size: 20))
+                            .frame(width: 20, height: 20)
+                        Text("\(location.actualTemp)")
+                    }
+                    .fixedSize()
+                }
+                .tag(location)
             }
+            .navigationTitle("Prefered Locations")
+            .navigationBarTitleDisplayMode(.inline)
             .searchable(
                 text: $searchText,
                 placement: .navigationBarDrawer,

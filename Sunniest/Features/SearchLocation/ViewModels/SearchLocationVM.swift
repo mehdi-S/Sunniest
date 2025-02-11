@@ -16,7 +16,31 @@ final class SearchLocationViewModel {
 
     init(viewFactory: AppViewFactory = AppViewFactory()) {
         self.viewFactory = viewFactory
-        countries = [LocationDTO(id: 0, name: "Paris 5eme arrondissement")]
+        countries = getLocations()
+    }
+
+    func getLocations() -> [LocationDTO] {
+        return (1...20).map { index in
+            let temp = Int.random(in: 0...22)
+            let suffix = index == 1 ? "er" : "eme"
+            return LocationDTO(id: index,  // Using index as id
+                             name: "Paris \(index)\(suffix) arrondissement",
+                             actualTemp: "\(String(temp))°C",
+                             weatherIcon: getIconFromTemperature(temp))
+        }
+    }
+
+    func getIconFromTemperature(_ temperature: Int) -> String {
+        switch temperature {
+        case 0...5:
+            return "cloud.rain.fill"
+        case 6...15:
+            return "smoke.fill"
+        case 16...22:
+            return "cloud.sun.fill"
+        default:
+            return "sun.max.fill"
+        }
     }
 
     func filteredCountries(searchText: String) ->[LocationDTO] {

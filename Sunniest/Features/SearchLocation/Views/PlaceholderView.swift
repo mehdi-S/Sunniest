@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct PlaceholderView: View {
+
+    struct Constants {
+        static let imageSize: CGFloat = 56
+    }
+
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "globe")
-                .font(.system(size: 56))
+                .font(.system(size: Constants.imageSize))
                 .foregroundStyle(.secondary)
 
             Text("Select a country to view its feed")
