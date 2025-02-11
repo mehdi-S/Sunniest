@@ -28,7 +28,7 @@ struct FeedItemView: View {
     }
 
     private var imageSection: some View {
-        AsyncImage(url: item.imageURL)
+        CachedImage(url: item.imageURL)
             .frame(height: Constants.imageHeight)
             .clipped()
     }
