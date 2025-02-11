@@ -7,11 +7,13 @@
 
 import SwiftUI
 
+// MARK: - Protocol
 protocol ViewFactory {
     associatedtype V: View
     @ViewBuilder func makeView(for route: Route) -> V
 }
 
+// MARK: - Factory
 final class AppViewFactory: ViewFactory {
     @ViewBuilder
     func makeView(for route: Route) -> some View {

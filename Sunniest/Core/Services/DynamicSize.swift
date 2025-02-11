@@ -8,46 +8,70 @@
 import SwiftUI
 
 struct DynamicSizeService: DynamicSizeProtocol {
+    // MARK: - Constants
+    private enum Constants {
+        enum ButtonSize {
+            static let small: CGFloat = 70
+            static let medium: CGFloat = 80
+            static let large: CGFloat = 90
+            static let extraLarge: CGFloat = 100
+        }
+
+        enum FrameSize {
+            static let small: CGFloat = 78
+            static let medium: CGFloat = 88
+            static let large: CGFloat = 98
+            static let extraLarge: CGFloat = 108
+        }
+
+        enum PaddingSize {
+            static let small: CGFloat = 16
+            static let medium: CGFloat = 20
+            static let large: CGFloat = 24
+        }
+    }
+
+    // MARK: - Public Methods
     func buttonSize(for dynamicTypeSize: DynamicTypeSize) -> CGFloat {
         switch dynamicTypeSize {
         case .xSmall, .small, .medium:
-            return 70
+            return Constants.ButtonSize.small
         case .large:
-            return 80
+            return Constants.ButtonSize.medium
         case .xLarge, .xxLarge:
-            return 90
+            return Constants.ButtonSize.large
         case .xxxLarge, .accessibility1, .accessibility2, .accessibility3, .accessibility4, .accessibility5:
-            return 100
+            return Constants.ButtonSize.extraLarge
         @unknown default:
-            return 80
+            return Constants.ButtonSize.medium
         }
     }
 
     func frameSize(for dynamicTypeSize: DynamicTypeSize) -> CGFloat {
         switch dynamicTypeSize {
         case .xSmall, .small, .medium:
-            return 78
+            return Constants.FrameSize.small
         case .large:
-            return 88
+            return Constants.FrameSize.medium
         case .xLarge, .xxLarge:
-            return 98
+            return Constants.FrameSize.large
         case .xxxLarge, .accessibility1, .accessibility2, .accessibility3, .accessibility4, .accessibility5:
-            return 108
+            return Constants.FrameSize.extraLarge
         @unknown default:
-            return 88
+            return Constants.FrameSize.medium
         }
     }
 
     func padding(for dynamicTypeSize: DynamicTypeSize) -> CGFloat {
         switch dynamicTypeSize {
         case .xSmall, .small, .medium:
-            return 16
+            return Constants.PaddingSize.small
         case .large, .xLarge, .xxLarge:
-            return 20
+            return Constants.PaddingSize.medium
         case .xxxLarge, .accessibility1, .accessibility2, .accessibility3, .accessibility4, .accessibility5:
-            return 24
+            return Constants.PaddingSize.large
         @unknown default:
-            return 16
+            return Constants.PaddingSize.small
         }
     }
 }

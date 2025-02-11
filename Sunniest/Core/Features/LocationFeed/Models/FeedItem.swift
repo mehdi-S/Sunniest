@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FeedItem: Identifiable, Hashable {
+    // MARK: - Properties
     var id = UUID()
     let image: ImageDisplayable
     let takenAt: String

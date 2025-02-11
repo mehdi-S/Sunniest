@@ -8,9 +8,13 @@
 import SwiftUI
 
 actor ImageCache {
+    // MARK: - Singleton
     static let shared = ImageCache()
+
+    // MARK: - Properties
     private var cache: [String: Image] = [:]
 
+    // MARK: - Methods
     func insert(_ image: Image, for key: String) {
         cache[key] = image
     }

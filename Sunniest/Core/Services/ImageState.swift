@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: - Enum
 enum ImageState {
     case loading
     case success(Image)

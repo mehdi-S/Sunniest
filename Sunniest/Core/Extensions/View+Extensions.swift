@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: - Extension
 extension View {
     @ViewBuilder
     func weatherForegroundStyle(isSunny: Bool) -> some View {

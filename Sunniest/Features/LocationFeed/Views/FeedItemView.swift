@@ -7,20 +7,25 @@
 
 import SwiftUI
 
+// MARK: - View
 struct FeedItemView: View {
-    struct Constants {
+    // MARK: - Constants
+    private enum Constants {
         static let imageHeight: CGFloat = 300
         static let cornerRadius: CGFloat = 12
         static let shadowRadius: CGFloat = 5
         static let spacing: CGFloat = 8
     }
+
+    // MARK: - Properties
     let item: FeedItem
 
+    // MARK: - Body
     var body: some View {
         VStack(alignment: .leading, spacing: Constants.spacing) {
             imageSection.overlay(alignment: .bottomTrailing) {
                 descriptionSection
-                    .padding([.trailing,.bottom], Constants.spacing)
+                    .padding([.trailing, .bottom], Constants.spacing)
             }
         }
         .background(Color(.systemBackground))
@@ -29,6 +34,7 @@ struct FeedItemView: View {
         .padding(.horizontal)
     }
 
+    // MARK: - View Components
     private var imageSection: some View {
         CachedImage(imageDisplayable: item.image)
             .frame(height: Constants.imageHeight)
@@ -43,6 +49,7 @@ struct FeedItemView: View {
     }
 }
 
+// MARK: - Preview
 #Preview {
     FeedItemView(item: FeedItem(
         image: ImageDisplayable(value: .system(systemId: "picture1")),

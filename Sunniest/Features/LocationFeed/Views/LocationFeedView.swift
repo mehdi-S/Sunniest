@@ -1,27 +1,30 @@
-//
-//  LocationFeedView.swift
-//  Sunniest
-//
-//  Created by Mehdi Silini on 11/02/2025.
-//
-
 import SwiftUI
 
+// MARK: - View
 struct LocationFeedView: View {
-    @State private var viewModel: LocationFeedViewModel
+    // MARK: - Environment
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(Router.self) private var router
+    
+    // MARK: - State Properties
+    @State private var viewModel: LocationFeedViewModel
+    
+    // MARK: - Dependencies
     private let sizeService = DynamicSizeService()
     private let photoCaptureManager = PhotoCaptureManager.shared
     private var cameraTip = CameraButtonTip()
-    struct Constants {
+    
+    // MARK: - Constants
+    private enum Constants {
         static let verticalSpacing: CGFloat = 20
     }
-
+    
+    // MARK: - Initialization
     init(viewModel: LocationFeedViewModel) {
         _viewModel = State(initialValue: viewModel)
     }
-
+    
+    // MARK: - Body
     var body: some View {
         ScrollView {
             contentSection
@@ -46,7 +49,8 @@ struct LocationFeedView: View {
         .defaultBackground()
         .navigationTitle(viewModel.location.name)
     }
-
+    
+    // MARK: - View Components
     private var contentSection: some View {
         LazyVStack(spacing: Constants.verticalSpacing) {
             ForEach(viewModel.items) { item in
@@ -57,6 +61,7 @@ struct LocationFeedView: View {
     }
 }
 
+// MARK: - Preview
 #Preview("Feed") {
     NavigationStack {
         LocationFeedView(viewModel: LocationFeedViewModel(location: LocationDTO.preview()))

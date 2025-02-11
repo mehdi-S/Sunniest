@@ -7,11 +7,21 @@
 
 import SwiftUI
 
+// MARK: - View
 struct CachedImage: View {
+    // MARK: - Properties
     let imageDisplayable: ImageDisplayable
 
+    // MARK: - State
     @State private var imageState: ImageState = .loading
 
+    // MARK: - Constants
+    private enum Constants {
+        static let placeholderOpacity: CGFloat = 0.1
+        static let placeholderColor: Color = .gray
+    }
+
+    // MARK: - Body
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -33,6 +43,7 @@ struct CachedImage: View {
         }
     }
 
+    // MARK: - View Components
     private var placeholderView: some View {
         ZStack {
             Color.gray.opacity(0.1)
@@ -48,6 +59,7 @@ struct CachedImage: View {
         }
     }
 
+    // MARK: - Private Methods
     private func loadImage() async {
         // Try cache first
         if let cached = await ImageCache.shared.get(imageDisplayable.imageURL) {

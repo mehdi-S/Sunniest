@@ -7,25 +7,31 @@
 
 import SwiftUI
 
+// MARK: - ViewModel
 @Observable
 @MainActor
 final class SearchLocationViewModel {
+    // MARK: - Properties
     var router = Router()
     var countries = [LocationDTO]()
     private let viewFactory: AppViewFactory
 
+    // MARK: - Initialization
     init(viewFactory: AppViewFactory = AppViewFactory()) {
         self.viewFactory = viewFactory
         countries = getLocations()
     }
 
+    // MARK: - Methods
     func getLocations() -> [LocationDTO] {
         return (1...20).map { index in
             let temp = Int.random(in: 0...22)
             let suffix = index == 1 ? "er" : "eme"
-            return LocationDTO(name: "Paris \(index)\(suffix) arrondissement",
-                               actualTemp: "\(String(temp))°C",
-                               weatherIcon: getIconFromTemperature(temp))
+            return LocationDTO(
+                name: "Paris \(index)\(suffix) arrondissement",
+                actualTemp: "\(String(temp))°C",
+                weatherIcon: getIconFromTemperature(temp)
+            )
         }
     }
 
@@ -42,12 +48,12 @@ final class SearchLocationViewModel {
         }
     }
 
-    func filteredCountries(searchText: String) ->[LocationDTO] {
-         guard !searchText.isEmpty else { return countries }
-         return countries.filter { country in
-             country.name.localizedCaseInsensitiveContains(searchText)
-         }
-     }
+    func filteredCountries(searchText: String) -> [LocationDTO] {
+        guard !searchText.isEmpty else { return countries }
+        return countries.filter { country in
+            country.name.localizedCaseInsensitiveContains(searchText)
+        }
+    }
 
     func navigateToLocationFeed(country: LocationDTO) {
         // add business logic here before navigation

@@ -9,8 +9,10 @@ import SwiftUI
 
 @Observable
 final class PhotoCaptureManager {
-    static let shared = PhotoCaptureManager()
-    private init() {}
+   // MARK: - Singleton
+   static let shared = PhotoCaptureManager()
+   private init() {}
 
-    var capturedImageFeedItemRepresentation: FeedItem?
+   // MARK: - Properties
+   var capturedImageFeedItemRepresentation: FeedItem?
 }
