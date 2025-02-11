@@ -13,13 +13,13 @@ import SwiftUI
 final class SearchLocationViewModel {
     // MARK: - Properties
     var router = Router()
-    var countries = [LocationDTO]()
+    var Locations = [LocationDTO]()
     private let viewFactory: AppViewFactory
 
     // MARK: - Initialization
     init(viewFactory: AppViewFactory = AppViewFactory()) {
         self.viewFactory = viewFactory
-        countries = getLocations()
+        Locations = getLocations()
     }
 
     // MARK: - Methods
@@ -48,16 +48,16 @@ final class SearchLocationViewModel {
         }
     }
 
-    func filteredCountries(searchText: String) -> [LocationDTO] {
-        guard !searchText.isEmpty else { return countries }
-        return countries.filter { country in
-            country.name.localizedCaseInsensitiveContains(searchText)
+    func filteredLocations(searchText: String) -> [LocationDTO] {
+        guard !searchText.isEmpty else { return Locations }
+        return Locations.filter { location in
+            location.name.localizedCaseInsensitiveContains(searchText)
         }
     }
 
-    func navigateToLocationFeed(country: LocationDTO) {
+    func navigateToLocationFeed(with location: LocationDTO) {
         // add business logic here before navigation
-        router.navigate(to: .locationFeed(location: country))
+        router.navigate(to: .locationFeed(location: location))
     }
 
     func makeViewFromFactory(for route: Route) -> some View {

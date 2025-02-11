@@ -42,7 +42,7 @@ private extension PlaceholderView {
     }
 
     var instructionText: some View {
-        Text("Select a country to view its feed")
+        Text("Select a location to view its feed")
             .font(.headline)
             .foregroundStyle(.secondary)
     }

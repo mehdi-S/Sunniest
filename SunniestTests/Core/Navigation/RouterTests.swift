@@ -13,13 +13,13 @@ struct RouterTests {
     func testNavigationPathUpdates() async throws {
         // Given
         let router = Router()
-        let country = LocationDTO.preview()
+        let location = LocationDTO.preview()
 
         // Then - Initial state
         #expect(router.path.count == 0)
 
         // When
-        router.navigate(to: .locationFeed(location: country))
+        router.navigate(to: .locationFeed(location: location))
 
         // Then - After navigation
         #expect(router.path.count == 1)
@@ -29,10 +29,10 @@ struct RouterTests {
     func testNavigateBack() async throws {
         // Given
         let router = Router()
-        let country = LocationDTO.preview()
+        let location = LocationDTO.preview()
 
         // When
-        router.navigate(to: .locationFeed(location: country))
+        router.navigate(to: .locationFeed(location: location))
         #expect(router.path.count == 1)
         router.navigateBack()
 
@@ -44,11 +44,11 @@ struct RouterTests {
     func testNavigateToRoot() async throws {
         // Given
         let router = Router()
-        let country = LocationDTO.preview()
+        let location = LocationDTO.preview()
 
         // When
-        router.navigate(to: .locationFeed(location: country))
-        router.navigate(to: .locationFeed(location: country))
+        router.navigate(to: .locationFeed(location: location))
+        router.navigate(to: .locationFeed(location: location))
         #expect(router.path.count == 2)
 
         router.navigateToRoot()

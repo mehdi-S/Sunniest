@@ -5,25 +5,26 @@ struct LocationFeedView: View {
     // MARK: - Environment
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(Router.self) private var router
-    
+
     // MARK: - State Properties
     @State private var viewModel: LocationFeedViewModel
-    
+    @State private var captureManager: PhotoCapturing
+
     // MARK: - Dependencies
     private let sizeService = DynamicSizeService()
-    private let photoCaptureManager = PhotoCaptureManager.shared
     private var cameraTip = CameraButtonTip()
-    
+
     // MARK: - Constants
     private enum Constants {
         static let verticalSpacing: CGFloat = 20
     }
-    
+
     // MARK: - Initialization
-    init(viewModel: LocationFeedViewModel) {
+    init(viewModel: LocationFeedViewModel, captureManager: PhotoCapturing) {
         _viewModel = State(initialValue: viewModel)
+        _captureManager = State(initialValue: captureManager)
     }
-    
+
     // MARK: - Body
     var body: some View {
         ScrollView {
@@ -32,15 +33,15 @@ struct LocationFeedView: View {
         .overlay(alignment: .bottomTrailing) {
             PhotoButtonView {
                 CameraButtonTip.buttonWasTapped.toggle()
-                router.navigate(to: .photoCapture)
+                viewModel.navigateToPhotoCapture(router: router)
             }
             .popoverTip(cameraTip)
             .padding(.trailing, sizeService.padding(for: dynamicTypeSize))
         }
-        .onChange(of: photoCaptureManager.capturedImageFeedItemRepresentation) { oldValue, newValue in
+        .onChange(of: captureManager.capturedImageFeedItemRepresentation) { oldValue, newValue in
             if let bundleID = newValue {
                 viewModel.handleCapturedPhoto(bundleID)
-                photoCaptureManager.capturedImageFeedItemRepresentation = nil
+                captureManager.capturedImageFeedItemRepresentation = nil
             }
         }
         .navigationDestination(for: Route.self) { route in
@@ -49,7 +50,7 @@ struct LocationFeedView: View {
         .defaultBackground()
         .navigationTitle(viewModel.location.name)
     }
-    
+
     // MARK: - View Components
     private var contentSection: some View {
         LazyVStack(spacing: Constants.verticalSpacing) {
@@ -64,7 +65,8 @@ struct LocationFeedView: View {
 // MARK: - Preview
 #Preview("Feed") {
     NavigationStack {
-        LocationFeedView(viewModel: LocationFeedViewModel(location: LocationDTO.preview()))
+        LocationFeedView(viewModel: LocationFeedViewModel(location: LocationDTO.preview()),
+                         captureManager: PhotoCaptureManager.shared)
     }
     .environment(Router())
 }

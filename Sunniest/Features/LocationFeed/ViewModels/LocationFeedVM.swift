@@ -15,7 +15,6 @@ final class LocationFeedViewModel {
     let location: LocationDTO
 
     // MARK: - Dependencies
-    private let router = Router()
     private let viewFactory: AppViewFactory
 
     // MARK: - Initialization
@@ -28,6 +27,10 @@ final class LocationFeedViewModel {
     // MARK: - Methods
     func handleCapturedPhoto(_ feedItem: FeedItem) {
         items.insert(feedItem, at: 0)
+    }
+
+    func navigateToPhotoCapture(router: Router) {
+        router.navigate(to: .photoCapture)
     }
 
     @ViewBuilder

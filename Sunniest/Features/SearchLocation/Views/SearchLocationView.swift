@@ -15,6 +15,11 @@ struct SearchLocationView: View {
         static let weatherIconSize: CGFloat = 20
     }
 
+    // MARK: - Initialization
+    init(viewModel: SearchLocationViewModel) {
+        _viewModel = State(initialValue: viewModel)
+    }
+
     // MARK: - Body
     var body: some View {
         NavigationSplitView {
@@ -29,7 +34,7 @@ struct SearchLocationView: View {
 // MARK: - View Components
 private extension SearchLocationView {
     var locationList: some View {
-        List(viewModel.filteredCountries(searchText: searchText),
+        List(viewModel.filteredLocations(searchText: searchText),
              selection: $selectedLocation) { location in
             locationRow(location)
         }
@@ -38,7 +43,7 @@ private extension SearchLocationView {
         .searchable(
             text: $searchText,
             placement: .navigationBarDrawer,
-            prompt: "Search countries"
+            prompt: "Search Locations"
         )
         .defaultBackground()
     }
@@ -46,7 +51,7 @@ private extension SearchLocationView {
     var locationDetail: some View {
         NavigationStack(path: $viewModel.router.path) {
             if let location = selectedLocation {
-                LocationFeedView(viewModel: LocationFeedViewModel(location: location))
+                viewModel.makeViewFromFactory(for: .locationFeed(location: location))
             } else {
                 PlaceholderView()
             }
@@ -79,5 +84,5 @@ private extension SearchLocationView {
 
 // MARK: - Preview
 #Preview {
-    SearchLocationView()
+    SearchLocationView(viewModel: SearchLocationViewModel())
 }
