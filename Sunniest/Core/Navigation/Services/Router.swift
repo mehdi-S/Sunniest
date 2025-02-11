@@ -9,10 +9,8 @@ import SwiftUI
 
 @Observable
 final class Router {
-    // Internal path that SwiftUI can bind to
     var path = NavigationPath()
 
-    // Private methods for navigation control
     private func appendToPath(_ route: Route) {
         path.append(route)
     }
@@ -23,18 +21,17 @@ final class Router {
         path.removeLast(path.count)
     }
 
-    // Public interface that controls how navigation can be performed
     func navigate(to route: Route) {
-        // Here we could add logging, analytics, or validation
+        // add logging, analytics, or validation
         appendToPath(route)
     }
     func navigateBack() {
-        // Here we could add checks or side effects before navigation
+        // add checks or side effects before navigation
         guard !path.isEmpty else { return }
         removeLastFromPath()
     }
     func navigateToRoot() {
-        // Here we could perform cleanup or trigger events
+        // perform cleanup or trigger events
         clearPath()
     }
 }

@@ -20,6 +20,8 @@ final class AppViewFactory: ViewFactory {
             LocationFeedView(
                 viewModel: LocationFeedViewModel(location: location)
             )
+        case .photoCapture:
+            PhotoCaptureView()
         }
     }
 }

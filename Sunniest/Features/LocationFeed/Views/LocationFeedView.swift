@@ -9,6 +9,9 @@ import SwiftUI
 
 struct LocationFeedView: View {
     @State private var viewModel: LocationFeedViewModel
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(Router.self) private var router
+    private let sizeService = DynamicSizeService()
     struct Constants {
         static let verticalSpacing: CGFloat = 20
     }
@@ -20,20 +23,26 @@ struct LocationFeedView: View {
     var body: some View {
         ScrollView {
             contentSection
-        }.overlay(alignment: .bottomTrailing) {
-            Button(action: { }) {
+        }
+        .overlay(alignment: .bottomTrailing) {
+            Button(action: {
+                router.navigate(to: .photoCapture)
+            }) {
                 Image(systemName: "camera.circle.fill")
-                    .font(.system(size: 80, weight: .medium))
+                    .font(.system(size: sizeService.buttonSize(for: dynamicTypeSize), weight: .medium))
                     .foregroundStyle(.blue)
-                    .frame(width: 88, height: 88)
+                    .frame(width: sizeService.frameSize(for: dynamicTypeSize), height: sizeService.frameSize(for: dynamicTypeSize))
                     .background(.white, in: Circle())
                     .shadow(color: .black.opacity(0.2), radius: 4)
             }
             .buttonStyle(PressableButtonStyle())
-            .padding([.trailing, .bottom], 16)
+            .padding([.trailing, .bottom], sizeService.padding(for: dynamicTypeSize))
+        }
+        .navigationDestination(for: Route.self) { route in
+            viewModel.makeViewForRoute(route)
         }
         .defaultBackground()
-        .navigationTitle("Feed")
+        .navigationTitle(viewModel.location.name)
     }
 
     private var contentSection: some View {
@@ -50,4 +59,5 @@ struct LocationFeedView: View {
     NavigationStack {
         LocationFeedView(viewModel: LocationFeedViewModel(location: LocationDTO.preview()))
     }
+    .environment(Router())
 }

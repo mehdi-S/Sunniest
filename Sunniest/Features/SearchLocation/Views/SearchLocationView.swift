@@ -19,7 +19,6 @@ struct SearchLocationView: View {
                 Text("\(location.name)")
                     .tag(location)
             }
-            .navigationBarTitleDisplayMode(.inline)
             .searchable(
                 text: $searchText,
                 placement: .navigationBarDrawer,
@@ -27,13 +26,14 @@ struct SearchLocationView: View {
             )
             .defaultBackground()
         } detail: {
-            NavigationStack {
+            NavigationStack(path: $viewModel.router.path) {
                 if let location = selectedLocation {
                     LocationFeedView(viewModel: LocationFeedViewModel(location: location))
                 } else {
                     PlaceholderView()
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
         }
         .environment(viewModel.router)
     }

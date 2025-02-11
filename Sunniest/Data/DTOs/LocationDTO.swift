@@ -10,6 +10,6 @@ struct LocationDTO: Codable, Hashable, Identifiable {
     let name: String
 
     static func preview() -> LocationDTO {
-        LocationDTO(id: 0, name: "France")
+        LocationDTO(id: 0, name: "Paris 5eme arrondissement")
     }
 }

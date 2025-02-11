@@ -13,7 +13,7 @@ struct CachedImage: View {
     @State private var imageState: ImageState = .loading
 
     var body: some View {
-        GeometryReader { geometry in  // This is key to match AsyncImage behavior
+        GeometryReader { geometry in
             ZStack {
                 switch imageState {
                 case .loading:

@@ -11,9 +11,12 @@ import SwiftUI
 final class LocationFeedViewModel {
     private(set) var items: [FeedItem] = []
     let location: LocationDTO
+    private let router = Router()
+    private let viewFactory: AppViewFactory
 
-    init(location: LocationDTO) {
+    init(location: LocationDTO, viewFactory: AppViewFactory = AppViewFactory()) {
         self.location = location
+        self.viewFactory = viewFactory
         items = [
             FeedItem(
                 imageURL: URL(string: "https://picsum.photos/400/300")!,
@@ -28,5 +31,10 @@ final class LocationFeedViewModel {
                 description: "Nature's beauty"
             )
         ]
+    }
+
+    @ViewBuilder
+    func makeViewForRoute(_ route: Route) -> some View {
+        viewFactory.makeView(for: route)
     }
 }

@@ -10,7 +10,6 @@ import SwiftUI
 @Observable
 @MainActor
 final class SearchLocationViewModel {
-    // Public router for SwiftUI binding access
     var router = Router()
     var countries = [LocationDTO]()
     private let viewFactory: AppViewFactory
@@ -27,9 +26,8 @@ final class SearchLocationViewModel {
          }
      }
 
-    // Navigation is controlled through specific methods
     func navigateToLocationFeed(country: LocationDTO) {
-        // We can add business logic here before navigation
+        // add business logic here before navigation
         router.navigate(to: .locationFeed(country: country))
     }
 
