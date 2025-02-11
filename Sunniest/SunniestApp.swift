@@ -11,7 +11,7 @@ import SwiftUI
 struct SunniestApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SearchLocationView()
         }
     }
 }
