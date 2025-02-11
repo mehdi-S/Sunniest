@@ -13,7 +13,9 @@ struct PhotoCaptureView: View {
 
     var body: some View {
         Button("Capture") {
-            viewModel.storeCapturedImage("picture1")
+            viewModel.storeCapturedImage(FeedItem(
+                image: ImageDisplayable(value: .system(systemId: "picture1")),
+                takenAt: "0 seconds ago"))
             router.navigateBack()
         }
     }

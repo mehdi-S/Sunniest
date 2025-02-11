@@ -11,7 +11,7 @@ import SwiftUI
 final class PhotoCaptureViewModel {
     private let captureManager = PhotoCaptureManager.shared
 
-    func storeCapturedImage(_ bundleID: String) {
-        captureManager.capturedImageBundleID = bundleID
+    func storeCapturedImage(_ feedItem: FeedItem) {
+        captureManager.capturedImageFeedItemRepresentation = feedItem
     }
 }

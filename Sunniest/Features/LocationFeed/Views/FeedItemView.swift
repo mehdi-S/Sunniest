@@ -18,8 +18,10 @@ struct FeedItemView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Constants.spacing) {
-            imageSection
-            descriptionSection
+            imageSection.overlay(alignment: .bottomTrailing) {
+                descriptionSection
+                    .padding([.trailing,.bottom], Constants.spacing)
+            }
         }
         .background(Color(.systemBackground))
         .cornerRadius(Constants.cornerRadius)
@@ -34,15 +36,16 @@ struct FeedItemView: View {
     }
 
     private var descriptionSection: some View {
-        Text(item.description)
-            .padding(.horizontal)
-            .padding(.bottom)
+        Text(item.takenAt)
+            .padding(8)
+            .background(.thinMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: Constants.cornerRadius))
     }
 }
 
 #Preview {
     FeedItemView(item: FeedItem(
-        image: ImageDisplayable(value: .async(networkId: "https://picsum.photos/400/300")),
-        description: "A beautiful landscape"
+        image: ImageDisplayable(value: .system(systemId: "picture1")),
+        takenAt: "1 second ago"
     ))
 }

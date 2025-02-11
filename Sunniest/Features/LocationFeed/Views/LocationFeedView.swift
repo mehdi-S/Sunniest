@@ -42,10 +42,10 @@ struct LocationFeedView: View {
             .padding([.trailing, .bottom], sizeService.padding(for: dynamicTypeSize))
             .popoverTip(cameraTip)
         }
-        .onChange(of: photoCaptureManager.capturedImageBundleID) { oldValue, newValue in
+        .onChange(of: photoCaptureManager.capturedImageFeedItemRepresentation) { oldValue, newValue in
             if let bundleID = newValue {
                 viewModel.handleCapturedPhoto(bundleID)
-                photoCaptureManager.capturedImageBundleID = nil
+                photoCaptureManager.capturedImageFeedItemRepresentation = nil
             }
         }
         .navigationDestination(for: Route.self) { route in

@@ -12,5 +12,5 @@ final class PhotoCaptureManager {
     static let shared = PhotoCaptureManager()
     private init() {}
 
-    var capturedImageBundleID: String?
+    var capturedImageFeedItemRepresentation: FeedItem?
 }

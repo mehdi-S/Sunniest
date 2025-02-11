@@ -18,14 +18,14 @@ final class LocationFeedViewModel {
         self.location = location
         self.viewFactory = viewFactory
         items = [
-            FeedItem(image: ImageDisplayable(value: .async(networkId: "https://picsum.photos/400/300")), description: "A beautiful landscape"),
-            FeedItem(image: ImageDisplayable(value: .async(networkId: "https://picsum.photos/400/301")), description: "City life"),
-            FeedItem(image: ImageDisplayable(value: .async(networkId: "https://picsum.photos/400/302")), description: "Nature's beauty")
+            FeedItem(image: ImageDisplayable(value: .async(networkId: "https://picsum.photos/400/300")), takenAt: "25 seconds ago"),
+            FeedItem(image: ImageDisplayable(value: .async(networkId: "https://picsum.photos/400/301")), takenAt: "11 minutes ago"),
+            FeedItem(image: ImageDisplayable(value: .async(networkId: "https://picsum.photos/400/302")), takenAt: "1 hour ago")
         ]
     }
 
-    func handleCapturedPhoto(_ photoBundleID: String) {
-        items.insert(FeedItem(image: ImageDisplayable(value: .system(systemId: photoBundleID)), description: ""), at: 0)
+    func handleCapturedPhoto(_ feedItem: FeedItem) {
+        items.insert(feedItem, at: 0)
     }
 
     @ViewBuilder
