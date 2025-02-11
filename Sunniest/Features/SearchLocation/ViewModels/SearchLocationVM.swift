@@ -57,7 +57,7 @@ final class SearchLocationViewModel {
 
     func navigateToLocationFeed(country: LocationDTO) {
         // add business logic here before navigation
-        router.navigate(to: .locationFeed(country: country))
+        router.navigate(to: .locationFeed(location: country))
     }
 
     func makeViewFromFactory(for route: Route) -> some View {
