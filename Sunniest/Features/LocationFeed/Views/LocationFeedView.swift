@@ -27,20 +27,12 @@ struct LocationFeedView: View {
             contentSection
         }
         .overlay(alignment: .bottomTrailing) {
-            Button(action: {
-                router.navigate(to: .photoCapture)
+            PhotoButtonView {
                 CameraButtonTip.buttonWasTapped.toggle()
-            }) {
-                Image(systemName: "camera.circle.fill")
-                    .font(.system(size: sizeService.buttonSize(for: dynamicTypeSize), weight: .medium))
-                    .foregroundStyle(.blue)
-                    .frame(width: sizeService.frameSize(for: dynamicTypeSize), height: sizeService.frameSize(for: dynamicTypeSize))
-                    .background(.white, in: Circle())
-                    .shadow(color: .black.opacity(0.2), radius: 4)
+                router.navigate(to: .photoCapture)
             }
-            .buttonStyle(PressableButtonStyle())
-            .padding([.trailing, .bottom], sizeService.padding(for: dynamicTypeSize))
             .popoverTip(cameraTip)
+            .padding(.trailing, sizeService.padding(for: dynamicTypeSize))
         }
         .onChange(of: photoCaptureManager.capturedImageFeedItemRepresentation) { oldValue, newValue in
             if let bundleID = newValue {

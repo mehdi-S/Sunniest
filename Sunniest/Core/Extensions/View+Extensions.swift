@@ -11,9 +11,9 @@ extension View {
     @ViewBuilder
     func weatherForegroundStyle(isSunny: Bool) -> some View {
         if isSunny {
-            self.foregroundStyle(.blue, .yellow)
+            self.foregroundStyle(.gray, .yellow)
         } else {
-            self.foregroundStyle(.blue)
+            self.foregroundStyle(.gray,.blue)
         }
     }
 }

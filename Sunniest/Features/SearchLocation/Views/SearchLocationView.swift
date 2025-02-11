@@ -21,7 +21,7 @@ struct SearchLocationView: View {
                     Spacer()
                     VStack(alignment: .trailing) {
                         Image(systemName: location.weatherIcon)
-                            .symbolRenderingMode(location.weatherIcon.contains("sun") ? .palette : .hierarchical)
+                            .symbolRenderingMode(.palette)
                             .weatherForegroundStyle(isSunny: location.weatherIcon.contains("sun"))
                             .font(.system(size: 20))
                             .frame(width: 20, height: 20)
