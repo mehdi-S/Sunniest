@@ -19,7 +19,7 @@ final class AppViewFactory: ViewFactory {
         case .locationFeed(let location):
             LocationFeedView(
                 viewModel: LocationFeedViewModel(location: location)
-            ).defaultBackground()
+            )
         }
     }
 }
