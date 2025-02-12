@@ -42,15 +42,19 @@ final class LocationFeedViewModel {
     private func setupMockData() {
         items = [
             FeedItem(
-                image: ImageDisplayable(value: .async(networkId: "https://picsum.photos/400/300")),
-                takenAt: "25 seconds ago"
+                image: ImageDisplayable(value: .system(systemId: "picture2")),
+                takenAt: "less than a minutes ago"
             ),
             FeedItem(
-                image: ImageDisplayable(value: .async(networkId: "https://picsum.photos/400/301")),
-                takenAt: "11 minutes ago"
+                image: ImageDisplayable(value: .system(systemId: "picture3")),
+                takenAt: "9 minutes ago"
             ),
             FeedItem(
-                image: ImageDisplayable(value: .async(networkId: "https://picsum.photos/400/302")),
+                image: ImageDisplayable(value: .system(systemId: "picture4")),
+                takenAt: "22 minutes ago"
+            ),
+            FeedItem(
+                image: ImageDisplayable(value: .async(networkId: "https://picsum.photos/536/354")),
                 takenAt: "1 hour ago"
             )
         ]
